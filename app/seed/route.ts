@@ -1,3 +1,4 @@
+//app\seed\route.ts
 import bcrypt from 'bcrypt';
 import { db } from '@vercel/postgres';
 import { invoices, customers, revenue, users } from '../lib/placeholder-data';
@@ -102,15 +103,9 @@ async function seedRevenue() {
 }
 
 export async function GET() {
-
   try {
     await client.sql`BEGIN`;
-    try {
-      await client.sql`SELECT 1`;
-      console.log("Database connection successful");
-    } catch (e) {
-      console.error("Database connection failed", e);
-    }
+    await seedUsers();
     await seedCustomers();
     await seedInvoices();
     await seedRevenue();
